@@ -1,0 +1,57 @@
+ How SQL works is that, in sends request and queries to the data base to manipulate.
+In SQL however we have the so called 'Subqueries' and generally speaking that is queries, within queries. 
+
+Queries are enclosed within normal brackets ().
+Queries can return as a result:
+	1. A single value - constant
+	2. A list of values
+	3. Relations
+Here we say a value or a constant to be a single cortege, and a list of values is a series of corteges.
+Subqueries can be used in various parts of a SQL statement, such as the SELECT, FROM, WHERE, or HAVING clauses. They are powerful tools for performing complex queries and are used to retrieve data based on the results of another query.
+Basically they retrieve the data from the parental querie and then further manipulate it to filter out the corteges that we get.
+They are typically used within the WHERE clause to filter data based on the results of the subquery, but they can also be used in other parts of a SQL statement.
+
+Let's look at some operators that are very useful and massly used in subqueries:
+Let's say we have a Relation R and a list L of values.
+	1. 'EXISTS (R)' - returns 'TRUE', if R has corteges.
+	2. 's IN(L)' - returns TRUE, if s is an element in list L
+	3. 's NOT IN (L)' - returns TRUE, if s is NOT in list L
+	4. 's > ALL(L)' - returns TRUE, if s is greater than every element in L
+	5. 's > ANY(L)' - return TRUE, if s is greater than any element in L
+
+
+Here is an example of subqueries:
+
+SELECT *
+FROM STARSIN
+WHERE STARNAME = (SELECT NAME
+		  FROM MOVIESTAR
+		  WHERE GENDER = 'F' AND NAME LIKE 'S%');
+
+"Corelation subqueries" is where our subqueries are depended of our main query.
+
+SELECT DISTINCT M1.TITLE, M1.YEAR
+FROM MOVIE M1
+WHERE M1.STUDIONAME IN ( SELECT M2.STUDIONAME
+			 FROM MOVIE M2
+			 WHERE UPPER(M2.TITLE)
+			 LIKE '%WAR%'
+			 AND M1.YEAR < M2.YEAR );
+
+And we usually use subqueries in the WHERE clause but we can also use them in other clauses
+
+SELECT MOVIETITLE, S.STARNAME, T.BIRTHDATE
+FROM STARSIN AS S, (SELECT NAME, BIRTHDATE
+		    FROM MOVIESTAR
+		    WHERE GENDER = 'M') AS T
+		    WHERE S.STARNAME = T.NAME;
+
+In the context of SQL queries, correlation refers to the relationship between the rows of the outer query and the rows of the inner (sub)query. When you correlate a subquery with the outer query, you establish a connection between the two queries based on one or more columns, allowing the subquery to consider the specific context of each row from the outer query.
+
+In simpler terms, correlation enables the inner query to filter or reference rows based on values from the outer query, making the subquery's operation context-aware.
+
+ there are other ways to establish correlation between the outer and inner queries aside from using a WHERE clause in the subquery. Here are a couple of other methods:
+
+	Using JOINs: You can achieve correlation by joining the outer and inner queries on a common column. This allows you to combine rows from both queries based on matching values in the common column.
+
+	Using Scalar Subqueries: Instead of a WHERE clause or JOINs, you can also use a scalar subquery in the SELECT clause to fetch a single value from the correlated subquery.
