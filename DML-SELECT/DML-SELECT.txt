@@ -1,0 +1,113 @@
+Some notes before starting with 'SELECT'
+SQL-Structured Query Language
+SQL is a language on high level that works by pulling request through a 
+'Relational Data Base'. Because how the language works it can pull request, create, delete and change the Data Base scheme.
+
+I. Let's start of simply with:
+SELECT *
+FROM MOVIE;
+
+'SELECT' is just a special form that tells us what do we want to select, as in which attributes accomodated with this special form is 'FROM', which tells us FROM which table do we want to select.
+The star (*) is another way of saying that we want to select all
+So this last lines of codes will print us everything from the Relation MOVIE
+
+II. And lets say we want to print given attributes, then we will write the name of the attributes. SQL is not case sensetive for the attributes, so we can wrte the attributes lower case or upper case. 
+
+SELECT title, year
+FROM MOVIE;
+
+III. 
+SELECT title, year, length, length/60
+FROM MOVIE;
+
+This will show us the Relation Data Base and it will give us only the attributes:
+'title', 'year', 'length' and another column that "we created". The 'length/60' will show the column of 'length' where the minutes will be modul divided by 60, effectively giving us how many hours does the movie goes for. (119/60 will give us 1 again so we can see that it rounds down)
+
+IV. 
+But we will see that column will have no name. It will have just an number, showing the number of the column. So we can change that by applying 'as some_name'. Example
+
+SELECT title, year, length, length/60 as hours
+FROM MOVIE;
+
+(This "Creating a new column" however does not work if we have selected all of the attributes to be shown with *) 
+
+V.
+And if we want only to show any element of an attribute one time, we put the special form 'DISTINCT'. Note!: 'DISTINCT' need to be right after the SELECT form and it's best work on only one attribute. (for example, if it reads two attributes, it may not find the distinct of the column we want)
+
+SELECT DISTINCT length/60 as HOURS
+FROM MOVIE;
+
+VI.
+So far we have been only been doing basic Data Base printing but we can actually sort our cortege to show the data that we want. That happens with the special form 'WHERE'. 'WHERE' is written after the 'FROM' form and we have the ability to take out only given corteges, based on some kind of conditional statement
+
+SELECT *
+FROM MOVIE
+WHERE length > 120;
+
+SELECT TITLE, YEAR
+FROM MOVIE
+WHERE STUDIONAME = 'Fox';
+
+SELECT NAME
+FROM MOVIESTAR
+WHERE BIRTHDATE = '1977-07-07';
+
+We can even sort out the attributes that have a value of NULL, of course if there are any in the table.
+
+SELECT TITLE, YEAR
+FROM MOVIE
+WHERE LENGTH IS NULL;
+
+We can also, put a 'BETWEEN' form, usually on Integers on Numbers to show the corteges meeting these conditions.
+
+SELECT TITLE, YEAR
+FROM MOVIE
+WHERE LENGTH BETWEEN 100 AND 120;
+
+Or we can use the special form 'IN' with given values, to show the corteges with those exact values of an attribute.
+
+SELECT TITLE, YEAR
+FROM MOVIE
+WHERE LENGTH IN (111, 124); -> so here it will only print the lengths that are exactly 111 or 124
+
+VII.
+The special operator/form 'LIKE' is not like the equal sign. It is used to search for a specified pattern in a column. It is combined with the 'wildcards' '_' and/or '%'.The _ (underscore) and % (percent sign) are wildcards used with the LIKE operator to match patterns.
+The underscore _ matches any single character. 
+The percent sign % matches zero or more characters. 
+Example:
+1.To find all movies whose title starts with "The" followed by exactly one character:
+	SELECT * 
+	FROM movies 
+	WHERE title LIKE 'The_';
+2.To find all movies whose title starts with "Star" followed by any number of characters:
+	SELECT * 
+	FROM movies 
+	WHERE title LIKE 'Star%';
+3.To find all movies whose title contains "man" anywhere in the title:
+	SELECT * 
+	FROM movies 
+	WHERE title LIKE '%man%';	
+These wildcards can be combined and used in different ways to match specific patterns in the data.
+
+VIII.
+And our 'WHERE' operator, like any conditional statement can be combined with the logical 'AND' and 'OR' statements. 
+
+SELECT TITLE, YEAR
+FROM MOVIE
+WHERE LENGTH NOT IN (111, 124)
+AND TITLE LIKE 'S%'
+OR TITLE LIKE '%Wars';
+
+IX.
+Finally. What we did since now was not a reaaal Order. We have been only selecting corteges to match our requirments. We can however Truly order them. Numbers order is trivial. String order are based on lexicographically. So what starts with 'a' is before 'b' which is before 'c' and so on. We use the operator 'ORDER  BY'
+
+SELECT STUDIONAME, TITLE, LENGTH
+FROM MOVIE
+WHERE LENGTH > 120
+ORDER BY STUDIONAME DESC;
+
+From the example above if we used ORDER BY without anything more, we will get the table in Ascending form. Putting the Operator 'DESC' puts it in descending form. 
+Note that 'ORDER BY' for strings is case senesetive. So for strings upper cases are higher than lower cases, based on the ASCII value.
+To perform a case-insensitive sorting, you can convert all values to a specific case before sorting. For example, you can convert all values to lowercase using the LOWER() function:
+
+
