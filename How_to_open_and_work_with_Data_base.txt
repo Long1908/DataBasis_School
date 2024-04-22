@@ -1,0 +1,29 @@
+After Installing we can create a file
+We click on 'File' from the Menu bar->We expand the 'Data 'source' -> then we click on
+'IBM Db2'
+
+From here we put the parameters for the DB2 server:
+	1)On the 'Name' line and field we write 'DB2'
+	2)Under 'General' on the 'Connection type' we select 'Type4' and on Driver we select
+'IBM Db2'
+	3)On 'Host' we write '62.44.108.24'
+	4)On 'Port' we write '50000'
+	5)On 'User' we write 'db2admin'
+	6)On 'Password' we write db2admin
+	7)On 'Database' we write 'SAMPLE'
+	8)and then we click on 'Test Connection'.
+If everything goes well after step 8) we should be good to go and hit 'Apply' and 'Ok'
+
+Now afterwards we are ready to create are new file that we are going to work with
+Again we hit 'File' from the menu bar -> we expand 'New' -> We click on 'SQL File'
+
+When our SQL file is created we need to choose our session:
+On the '<session>' bar we need to expand it and then we click on 'DB2' and then we click on
+'console'
+
+After that we have to choose our scheme. If we are given the option to click on 
+'Introspect schema' we click on it.
+
+(Sometimes that might not work at first, so we need to refresh)
+
+After everything is done we should be able to write SQL.

@@ -1,0 +1,19 @@
+Example:
+
+SELECT {* |[DISTINCT] column |
+expression [alias],..}
+FROM table
+WHERE <condition>
+GROUP BY <column>
+HAVING <condition>
+ORDER BY <column>;
+
+Order:
+
+5) SELECT {* | column | expression
+[alias],..}
+1) FROM table
+2) WHERE <condition>
+3) GROUP BY <column>
+4) HAVING <condition>
+6) ORDER BY <column>;
