@@ -1,0 +1,69 @@
+SKALAR functions:
+
+1. These are premade functions that we call.
+2. When we call we can parse one or many arguments but it will always return a single value.
+3. They are used on the columns or the a particular element of the column
+4. They work for every row of the table/relation
+5. For each row they return a single value.
+6. We put functions within other fucntion as an argument
+
+What kind of Skalar functions do we have:
+	1.Character functions - for manipulating strings
+	2.Numeric Functions - for manipulating numbers
+	3.Date functions - for manipulating dates.
+	4.Coversion Functions - recreational
+	5.General functions
+		5.1. NVL
+		5.2. NULLIF
+		5.3. COALESCE
+		5.4. DECODE
+
+-Character functions: LOWER, UPPER, LENGTH, SUBSTR, REPLACE, TRIM, CONCAT
+
+SELECT UPPER(TITLE) AS TITLE,
+	LENGTH(TITLE) AS LEN_TITLE
+FROM MOVIE
+WHERE SUBSTR(STUDIONAME,1,3)='MGM';
+
+-Numeric functions: ROUND, DECIMAL
+
+SELECT LENGTH/60 AS LEN_INT,
+	ROUND(LENGTH/60.0) AS LEN_RND,
+	DECIMAL(LENGTH/60.0, 9, 2) AS LEN_DEC
+FROM MOVIE
+WHERE SUBSTR(STUDIONAME,1,3)='MGM';
+
+-Date Functions: CURRENT_DATE, YEAR
+
+SELECT NAME, YEAR(CURRENT_DATE) - YEAR(BIRTHDATE) AS AGE
+FROM MOVIESTAR
+WHERE YEAR(CURRENT_DATE) - YEAR(BIRTHDATE)<=41;
+
+AGGREGATED functions
+
+1.Used on particular columns and work for multiple rows of the table/relation
+2.When used for multiple rows it returns a single value only.
+3.Can use a function within a function
+4.All aggregated functions ignore the NULL value
+--
+1. AVG and SUM. Can only be used on data that are numeric value.
+
+SELECT SUM(LENGTH) AS SUM_LEN,
+	AVG(LENGTH) AS AVG_LEN
+FROM MOVIE
+WHERE UPPER(TITLE) LIKE '%STAR%';
+
+2. MIN and MAX. Can be used on data that numeric, data and string type
+SELECT MIN(LENGTH) AS MIN_LEN,
+	MAX(LENGTH) AS MAX_LEN
+FROM MOVIE
+WHERE UPPER(TITLE) LIKE '%STAR%';
+
+3. COUNT
+SELECT COUNT(*) AS ALL_ROWS,
+	COUNT(DISTINCT STUDIONAME) AS STUDIOS,
+	COUNT(LENGTH) AS CNT_NOT_NULL_VALUES
+FROM MOVIE;
+
+
+
