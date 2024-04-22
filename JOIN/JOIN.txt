@@ -1,0 +1,80 @@
+So far we have been selecting attributes from only One Relational Data Base table, select the corteges that we want, based on some conditional statements and ordered them if we want. 
+But now we can combine multiple tables.
+
+I. It is important to mention now the difference between PRIMARY KEY and FOREIGN KEY and what they are.
+
+Primary Key:
+1. A primary key is a column or a set of columns in a table that uniquely identifies each row in that table.
+2. It must contain unique values for each row and cannot contain NULL values.
+3. There can be only one primary key constraint on a table.
+4. Primary keys are typically used as the basis for creating relationships with other tables.
+5. Primary keys are often created using the PRIMARY KEY constraint in SQL.
+
+Foreign Key:
+1. A foreign key is a column or a set of columns in a table that refers to the primary key of another table.
+2. It establishes a relationship between two tables by enforcing referential integrity.
+3. A foreign key constraint ensures that the values in the foreign key column(s) match the values in the primary key column(s) of the referenced table.
+4. Multiple foreign keys can exist in a table, referencing different tables or even the same table.
+5. Foreign keys are created using the FOREIGN KEY constraint in SQL.
+
+In summary, the primary key uniquely identifies rows within a table, while the foreign key establishes a relationship between two tables by referencing the primary key of another table.
+
+II.
+We can select attributes from different tables:
+
+SELECT STUDIONAME, TITLE, STARNAME
+FROM MOVIE , STARSIN ;
+
+!NOTE:
+When you have a "Many-to-One" relationship between two tables in a relational database and you perform a JOIN operation between them, it's common to see the values of attributes from the "Many" side repeated for each corresponding row on the "One" side.
+
+Suppose you have two tables: Orders and Customers. Each order can be associated with only one customer (One-to-Many relationship), but each customer can have multiple orders.
+
+SELECT TITLE, YEAR, NAME
+FROM MOVIE , STUDIO;
+
+On the example above, we will see that 'NAME', referncing to the 'STUDIO NAME' will be printed multiple times, since a STUDIO can be associated with many TITLES of a Movie.
+
+III.
+And we can use condiotional checks on attributes from different tables. 
+
+SELECT STUDIONAME, TITLE, STARNAME
+FROM MOVIE , STARSIN
+WHERE TITLE = MOVIETITLE AND YEAR = MOVIEYEAR
+AND LENGTH > 130
+ORDER BY title;
+
+In this example above, we actually filter the ROWS that match witht he given statement. Cause of the conneciton type between the tablesm we might see that there is redundancy of a row with somekind of value. (Cause of the effect from the JOIN we talked about from above)> So we can fiter this out by doing this)
+
+IV. 
+We can also self join.
+A self-join is a type of join operation in SQL where a table is joined with itself. In other words, you treat the same table as if it were two separate tables, allowing you to compare rows within the same table. Self-joins are particularly useful when you need to compare values within a single table or when you need to establish relationships between different rows in the same table.
+
+Syntax:
+1. In a self-join, you use the same table name for both instances of the table in the join operation.
+2. You typically use table aliases to distinguish between the two instances of the table.
+3. The join condition specifies how the rows from one instance of the table should be matched with rows from the other instance.
+
+SELECT DISTINCT M1.TITLE, M1.YEAR
+FROM MOVIE M1 , MOVIE M2
+WHERE M1.STUDIONAME=M2.STUDIONAME
+AND M1.YEAR < M2.YEAR
+AND UPPER(M2.TITLE) LIKE '%WAR%';
+
+V.
+And here we can see that we can use this 'JOIN' to take from multiple tables of Data.
+
+SELECT STARNAME, BIRTHDATE, STUDIONAME
+FROM MOVIE , STARSIN , MOVIESTAR
+WHERE TITLE = MOVIETITLE
+AND YEAR = MOVIEYEAR
+AND NAME = STARNAME
+AND LENGTH > 130
+ORDER BY title;
+
+!NOTE: Basically the 'WHERE' operator where we right multiple equals, is to ensure us that we are not gonna print copies of values of some attributes and have the same rows over and over again. We are just gonna print out what we need in a compact form.
+BASICALLY to delete any unwanted copies of rows and values.
+
+VI.
+Cartesian JOIN
+A cross join, also known as a Cartesian join, is a type of join operation in SQL that produces the Cartesian product of two tables. In other words, it combines each row of the first table with every row of the second table, resulting in a combination of all possible pairs of rows.

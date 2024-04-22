@@ -1,0 +1,31 @@
+--task1
+SELECT DISTINCT STARNAME
+FROM STARSIN, MOVIE
+WHERE TITLE = 'Terms of Endearment';
+
+--task2
+SELECT STARNAME
+FROM STARSIN, MOVIE
+WHERE STUDIONAME = 'MGM'
+AND YEAR = 1995
+AND TITLE = MOVIETITLE
+AND YEAR = MOVIEYEAR;
+
+--task3
+SELECT DISTINCT NAME
+FROM MOVIEEXEC, MOVIE
+WHERE STUDIONAME = 'MGM'
+AND PRODUCERC# = CERT#;
+
+--task4
+SELECT M1.TITLE
+FROM MOVIE M1 , MOVIE M2
+WHERE M1.LENGTH > M2.LENGTH
+AND M2.TITLE = 'Gone With the Wind'
+AND M1.YEAR <> M2.YEAR-- <> IS NOT EQUAL. OR JUST THE OPPOSITE OF =
+AND M1.TITLE <> M2.TITLE;
+
+--task5
+select *
+from movieexec me1, movieexec me2
+where me1.networth>me2.networth and me1.cert#<>me2.cert# and me2.name='Merv Griffin';
